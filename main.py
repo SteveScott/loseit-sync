@@ -25,5 +25,13 @@ service = build('drive', 'v3', credentials=credentials)
 user_info_service = build('oauth2', 'v2', credentials=credentials)
 user_info = user_info_service.userinfo().get().execute()
 print(user_info['email'])
+
+folder_name='LoseIt'
+results = service.files().list(
+    q=f"name='{folder_name} and mimeType='application/vnd.google-apps.folder' and 'root' in parents",
+    spaces='drive',
+    fields='files(id,name)'
+).execute()
 service.close()
+logging.info(results)
 logging.info('service is closed')
