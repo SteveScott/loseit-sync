@@ -1,7 +1,7 @@
 
 ## import libraries
 import os
-from googleapiclient.discovery import build
+from googleapiclient.discovery import build, Resource
 from google_auth_oauthlib.flow import InstalledAppFlow
 from dotenv import  load_dotenv
 from pathlib import Path
@@ -38,7 +38,7 @@ logging.info('service is created')
 
 #find the LoseIt folder
 query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and 'root' in parents"
-results = service.files().list(
+results : Resource = service.files().list(
     q=query,
     spaces='drive',
     fields='files(id,name)'
