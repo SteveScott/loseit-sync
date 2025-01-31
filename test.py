@@ -36,7 +36,8 @@ def test_gdrive(gdrive):
     service = gdrive.connect_to_service('drive', gdrive.credentials, 'v3')
     assert service is not None
     page_token=None
-    results = service.files().list(spaces='drive', 
+    results = service.files().list(q="'root' in parents and mimeType = 'application/vnd.google-apps.folder'",
+                                   spaces='drive', 
                                    fields='nextPageToken, files(id, name)', 
                                    pageToken=page_token,
                                    ).execute()
